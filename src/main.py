@@ -1,26 +1,39 @@
 import functions
+import os
+import sys
+
 
 try:
+
     temp = ''
+
     text = None
 
-    print('Start Typing a word. If you need Suggestions, then press Enter/Return:\n '
-          'Enter < for backspace of a char.')
+    print('-- start typing a word to make suggestions then press *Enter* ...')
+    print('-- you can type < then press *Enter* for backspace a char ...\n')
 
     while True:
 
+        arr = os.listdir('class') #open classes directory
+        for x in range(arr.__len__()):
+            with open("mynewwords.txt", "a+") as myfile:  #openfiel
+                myfile.write(arr[x]) #put file name in the file mynewword.txt
+                myfile.write("\n")
+
         if text is None:
             text = ''
-        text = input(temp)
+
+        text = raw_input(temp)
         temp += text
 
         if text == '':
-            print('Your word is: ', temp)
+            print('your word is: ', temp)
             break
 
         elif text.strip() == '<':
             temp = temp.replace('<', '')[:-1]
             print(temp)
+
         result = functions.suggest(temp.strip().lower())
 
         if result == temp:

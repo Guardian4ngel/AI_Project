@@ -1,30 +1,37 @@
 from collections import Counter
 import re
 
+"""
+`words` function will take the text as an input and extract all
+the words from text stripping the newline char.
+"""
+
+
+
 
 def words(text):
-    """
-    This function will take the text as an input and extract all
-    the words from text stripping the newline char.
-    """
     return re.findall('\w+', text.lower())
 
 
-WORDS = Counter(words(open('words.txt', 'r').read()))
+WORDS = Counter(words(open('mynewwords.txt', 'r').read()))
 
 
-def check_words_start_with(text):
-    """
-    This function will get all the words starting with the input
-    value, and passes utmost 7 matching words returned from the
-    helper function knwon().
-    """
-    got_words = known(text)
-    return list(got_words)[:7]
+"""
+`known` function will get all the words starting with the input
+value, and passes utmost 5 matching words returned from the
+helper function knwon().
+"""
 
 
 def known(text):
+    with open("mynewwords.txt", "a+") as myfile:
+        myfile.close()
     return (w for w in WORDS if w.startswith(text))
+
+
+def check_words_start_with(text):
+    got_words = known(text)
+    return list(got_words)[:5]
 
 
 def suggest(text):
